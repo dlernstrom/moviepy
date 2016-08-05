@@ -20,8 +20,9 @@ lib
 lib64
 __pycache__
 
-# Sublime
+# IDE
 .sublime-project
+*.wpr
 
 # Installer logs
 pip-log.txt
