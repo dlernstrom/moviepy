@@ -1,6 +1,4 @@
-"""
-Misc. useful functions that can be used at many places in the program.
-"""
+"""Misc. useful functions that can be used at many places in the program."""
 
 import subprocess as sp
 import sys
@@ -44,7 +42,8 @@ def subprocess_call(cmd, verbose=True, errorprint=True):
     proc.stderr.close()
 
     if proc.returncode:
-        verbose_print(errorprint, "\n[MoviePy] This command returned an error !")
+        verbose_print(errorprint,
+                      "\n[MoviePy] This command returned an error!")
         raise IOError(err.decode('utf8'))
     else:
         verbose_print(verbose, "\n... command successful.\n")
@@ -76,24 +75,23 @@ def cvsecs(time):
             time = time + '.0'
         expr = r"(\d+):(\d+):(\d+)[,|.](\d+)"
         finds = re.findall(expr, time)[0]
-        nums = list( map(float, finds) )
-        return ( 3600*int(finds[0])
+        nums = list(map(float, finds))
+        return (3600*int(finds[0])
                 + 60*int(finds[1])
                 + int(finds[2])
                 + nums[3]/(10**len(finds[3])))
-
     elif isinstance(time, tuple):
-        if len(time)== 3:
+        if len(time) == 3:
             hr, mn, sec = time
-        elif len(time)== 2:
+        elif len(time) == 2:
             hr, mn, sec = 0, time[0], time[1]
         return 3600*hr + 60*mn + sec
-
     else:
         return time
 
+
 def deprecated_version_of(f, oldname, newname=None):
-    """ Indicates that a function is deprecated and has a new name.
+    """Indicates that a function is deprecated and has a new name.
 
     `f` is the new function, `oldname` the name of the deprecated
     function, `newname` the name of `f`, which can be automatically
@@ -120,15 +118,14 @@ def deprecated_version_of(f, oldname, newname=None):
 
     if newname is None: newname = f.__name__
 
-    warning= ("The function ``%s`` is deprecated and is kept temporarily "
-              "for backwards compatibility.\nPlease use the new name, "
-              "``%s``, instead.")%(oldname, newname)
+    warning = ("The function ``%s`` is deprecated and is kept temporarily "
+               "for backwards compatibility.\nPlease use the new name, "
+               "``%s``, instead.")%(oldname, newname)
 
     def fdepr(*a, **kw):
         warnings.warn("MoviePy: " + warning, PendingDeprecationWarning)
         return f(*a, **kw)
     fdepr.__doc__ = warning
-
     return fdepr
 
 
@@ -137,23 +134,22 @@ def deprecated_version_of(f, oldname, newname=None):
 # Note that 'gif' is complicated to place. From a VideoFileClip point of view,
 # it is a video, but from a HTML5 point of view, it is an image.
 
-extensions_dict = { "mp4":  {'type':'video', 'codec':['libx264','libmpeg4']},
-                    'ogv':  {'type':'video', 'codec':['libtheora']},
-                    'webm': {'type':'video', 'codec':['libvpx']},
-                    'avi':  {'type':'video'},
-                    'mov':  {'type':'video'},
-
-                    'ogg':  {'type':'audio', 'codec':['libvorbis']},
-                    'mp3':  {'type':'audio', 'codec':['libmp3lame']},
-                    'wav':  {'type':'audio', 'codec':['pcm_s16le', 'pcm_s32le']},
-                    'm4a':  {'type':'audio', 'codec':['libfdk_aac']}
-                  }
+extensions_dict = {
+    "mp4":  {'type':'video', 'codec':['libx264', 'libmpeg4']},
+    'ogv':  {'type':'video', 'codec':['libtheora']},
+    'webm': {'type':'video', 'codec':['libvpx']},
+    'avi':  {'type':'video'},
+    'mov':  {'type':'video'},
+    'ogg':  {'type':'audio', 'codec':['libvorbis']},
+    'mp3':  {'type':'audio', 'codec':['libmp3lame']},
+    'wav':  {'type':'audio', 'codec':['pcm_s16le', 'pcm_s32le']},
+    'm4a':  {'type':'audio', 'codec':['libfdk_aac']}}
 
 for ext in ["jpg", "jpeg", "png", "bmp", "tiff"]:
     extensions_dict[ext] = {'type':'image'}
 
 def find_extension(codec):
-    for ext,infos in extensions_dict.items():
-        if ('codec' in infos) and codec in infos['codec']:
+    for ext, infos in extensions_dict.items():
+        if 'codec' in infos and codec in infos['codec']:
             return ext
     raise ValueError

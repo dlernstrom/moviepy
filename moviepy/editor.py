@@ -1,5 +1,4 @@
-"""
-This file is meant to make it easy to load the main features of
+"""This file is meant to make it easy to load the main features of
 MoviePy by simply typing:
 
 >>> from moviepy.editor import *
@@ -23,10 +22,13 @@ from .video.io.VideoFileClip import VideoFileClip
 from .video.io.ImageSequenceClip import ImageSequenceClip
 from .video.io.downloader import download_webfile
 from .video.VideoClip import VideoClip, ImageClip, ColorClip, TextClip
-from .video.compositing.CompositeVideoClip import CompositeVideoClip, clips_array
-from .video.compositing.concatenate import concatenate_videoclips, concatenate # concatenate=deprecated
+from .video.compositing.CompositeVideoClip import CompositeVideoClip, \
+    clips_array
+from .video.compositing.concatenate import concatenate_videoclips, \
+    concatenate # concatenate=deprecated
 
-from .audio.AudioClip import AudioClip, CompositeAudioClip, concatenate_audioclips
+from .audio.AudioClip import AudioClip, CompositeAudioClip, \
+    concatenate_audioclips
 from .audio.io.AudioFileClip import AudioFileClip
 
 # FX
@@ -48,38 +50,31 @@ except ImportError:
     pass
 
 # The next loop transforms many effects into VideoClip methods so that
-# they can be walled with myclip.resize(width=500) instead of 
+# they can be walled with myclip.resize(width=500) instead of
 # myclip.fx( vfx.resize, width= 500)
-for method in [
-          "afx.audio_fadein",
-          "afx.audio_fadeout",
-          "afx.volumex",
-          "transfx.crossfadein",
-          "transfx.crossfadeout",
-          "vfx.crop",
-          "vfx.fadein",
-          "vfx.fadeout",
-          "vfx.invert_colors",
-          "vfx.loop",
-          "vfx.margin",
-          "vfx.mask_and",
-          "vfx.mask_or",
-          "vfx.resize",
-          "vfx.rotate",
-          "vfx.speedx"
-          ]:
-
-    exec("VideoClip.%s = %s"%( method.split('.')[1], method))
-
+for method in ["afx.audio_fadein",
+               "afx.audio_fadeout",
+               "afx.volumex",
+               "transfx.crossfadein",
+               "transfx.crossfadeout",
+               "vfx.crop",
+               "vfx.fadein",
+               "vfx.fadeout",
+               "vfx.invert_colors",
+               "vfx.loop",
+               "vfx.margin",
+               "vfx.mask_and",
+               "vfx.mask_or",
+               "vfx.resize",
+               "vfx.rotate",
+               "vfx.speedx"]:
+    exec("VideoClip.%s = %s" % (method.split('.')[1], method))
 
 for method in ["afx.audio_fadein",
                "afx.audio_fadeout",
                "afx.audio_loop",
-               "afx.volumex"
-              ]:
-              
-    exec("AudioClip.%s = %s"%( method.split('.')[1], method))
-
+               "afx.volumex"]:
+    exec("AudioClip.%s = %s" % (method.split('.')[1], method))
 
 # adds easy ipython integration
 VideoClip.ipython_display = ipython_display

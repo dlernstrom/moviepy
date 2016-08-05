@@ -1,6 +1,4 @@
-"""
-Configuration of MoviePy
-
+"""Configuration of MoviePy
 
 This file enables you to specify a configuration for MoviePy. In
 particular you can enter the path to the FFMPEG and ImageMagick
@@ -45,7 +43,6 @@ IMAGEMAGICK_BINARY
     'convert' binary. For instance:
 
     IMAGEMAGICK_BINARY = r"C:\Program Files\ImageMagick-6.8.8-Q16\convert.exe"
-
 """
 
 import os
